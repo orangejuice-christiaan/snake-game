@@ -1,8 +1,9 @@
-#include <Snake.h>
+#pragma once
+
 #include <vector>
 #include <Fruit.h>
-
-#pragma once
+#include "Game.h"
+#include "Snake.h"
 
 class Game {
 public:
@@ -11,6 +12,7 @@ public:
 
 	void Update(float dt);
 	void Draw();
+	void OnInput();
 private:
 	Snake m_Snake;
 	std::vector<Fruit> m_Fruits;

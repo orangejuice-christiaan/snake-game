@@ -3,47 +3,62 @@
 
 int main(void)
 {
-    const int screenWidth = 1200;
-    const int screenHeight = 800;
+	const int screenWidth = 1200;
+	const int screenHeight = 800;
 
-    SetConfigFlags(FLAG_WINDOW_RESIZABLE);
-    SetConfigFlags(FLAG_VSYNC_HINT);
+	SetConfigFlags(FLAG_WINDOW_RESIZABLE);
+	SetConfigFlags(FLAG_VSYNC_HINT);
 
-    InitWindow(screenWidth, screenHeight, "Snake Game");
+	InitWindow(screenWidth, screenHeight, "Snake Game");
 
-    SetTargetFPS(144);
+	SetTargetFPS(144);
 
-    float deltaTime = 1.0f / 60.0f;
-    double accumulator = 0.0f;
-    double lastTime = GetTime();
+	float deltaTime = 1.0f / 60.0f;
+	double accumulator = 0.0f;
+	double lastTime = GetTime();
 
-    Game game;
+	Camera3D camera = { 0 };
+	camera.position = { 5.0f, 5.0f, 5.0f };
+	camera.target = { 0.0f, 1.0f, 0.0f };
+	camera.up = { 0.0f, 1.0f, 0.0f };
+	camera.fovy = 45.0f;
+	camera.projection = CAMERA_PERSPECTIVE;
 
-    while (!WindowShouldClose())
-    {
-        double currentTime = GetTime();
-        double frameTime = currentTime - lastTime;
-        lastTime = currentTime;
-        accumulator += frameTime;
+	Game game;
 
-        while (accumulator >= deltaTime)
-        {
-            game.Update(deltaTime);
-            accumulator -= deltaTime;
-        }
+	while (!WindowShouldClose())
+	{
+		double currentTime = GetTime();
+		double frameTime = currentTime - lastTime;
+		lastTime = currentTime;
+		accumulator += frameTime;
 
-        BeginDrawing();
+		while (accumulator >= deltaTime)
+		{
+			game.Update(deltaTime);
+			accumulator -= deltaTime;
+		}
 
-        ClearBackground(RAYWHITE);
+		UpdateCamera(&camera, CAMERA_THIRD_PERSON);
 
-        game.Draw();
+		BeginDrawing();
 
-        DrawFPS(10, 10);
+		BeginMode3D(camera);
 
-        EndDrawing();
-    }
+		ClearBackground(RAYWHITE);
 
-    CloseWindow();
+		game.Draw();
 
-    return 0;
+		DrawGrid(100, 1.0f);
+
+		EndMode3D();
+
+		DrawFPS(10, 10);
+
+		EndDrawing();
+	}
+
+	CloseWindow();
+
+	return 0;
 }
