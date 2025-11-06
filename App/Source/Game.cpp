@@ -4,6 +4,9 @@
 Game::Game()
 	: m_Snake(), m_Fruits()
 {
+	HideCursor();
+	DisableCursor();
+
 	Transform& ts = m_Snake.m_Transform = {
 		{ 0.0f, 0.0f, 0.0f },
 		{ 0.0f, 0.0f, 0.0f, 0.0f },
@@ -34,5 +37,17 @@ void Game::Draw()
 
 void Game::OnInput()
 {
-
+	if (IsKeyPressed(KEY_H))
+	{
+		if (IsCursorHidden())
+		{
+			ShowCursor();
+			EnableCursor();
+		}
+		else
+		{
+			HideCursor();
+			DisableCursor();
+		}
+	}
 }

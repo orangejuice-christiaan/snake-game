@@ -39,7 +39,7 @@ int main(void)
 			accumulator -= deltaTime;
 		}
 
-		UpdateCamera(&camera, CAMERA_THIRD_PERSON);
+		UpdateCamera(&camera, CAMERA_FIRST_PERSON);
 
 		BeginDrawing();
 
@@ -49,13 +49,15 @@ int main(void)
 
 		game.Draw();
 
-		DrawGrid(100, 1.0f);
+		DrawGrid(100, 1.0f); // TEMP
 
 		EndMode3D();
 
 		DrawFPS(10, 10);
 
 		EndDrawing();
+
+		game.OnInput();
 	}
 
 	CloseWindow();
