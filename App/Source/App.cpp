@@ -17,13 +17,6 @@ int main(void)
 	double accumulator = 0.0f;
 	double lastTime = GetTime();
 
-	Camera3D camera = { 0 };
-	camera.position = { 5.0f, 5.0f, 5.0f };
-	camera.target = { 0.0f, 1.0f, 0.0f };
-	camera.up = { 0.0f, 1.0f, 0.0f };
-	camera.fovy = 45.0f;
-	camera.projection = CAMERA_PERSPECTIVE;
-
 	Game game;
 
 	while (!WindowShouldClose())
@@ -39,9 +32,9 @@ int main(void)
 			accumulator -= deltaTime;
 		}
 
-		UpdateCamera(&camera, CAMERA_FIRST_PERSON);
-
 		BeginDrawing();
+
+		const Camera3D& camera = game.GetCamera();
 
 		BeginMode3D(camera);
 
