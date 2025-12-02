@@ -48,6 +48,8 @@ int main(void)
 
 		DrawFPS(10, 10);
 
+		game.DrawUI();
+
 		EndDrawing();
 
 		game.OnInput();
