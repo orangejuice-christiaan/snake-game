@@ -5,7 +5,7 @@ project "App"
    targetdir "Binaries/%{cfg.buildcfg}"
    staticruntime "off"
 
-   files { "Source/**.h", "Source/**.cpp", "resources/**" }
+   files { "Source/**.h", "Source/**.cpp" }
 
    includedirs
    {
@@ -27,23 +27,11 @@ project "App"
         defines { "WINDOWS" }
         links { "opengl32", "winmm", "gdi32", "kernel32" }
 
-        postbuildcommands {
-            '{COPY} "%{wks.location}App/Source/Resources" "%{cfg.targetdir}/resources"'
-        }
-
     filter "system:linux"
         links { "GL", "pthread", "m", "dl", "rt", "X11" }
 
-        postbuildcommands {
-            'cp -r "%{wks.location}App/Source/Resources" "%{cfg.targetdir}/resources"'
-        }
-
     filter "system:macosx"
         links { "Cocoa.framework", "OpenGL.framework", "IOKit.framework", "CoreVideo.framework" }
-
-        postbuildcommands {
-            'cp -r "%{wks.location}App/Source/Resources" "%{cfg.targetdir}/resources"'
-        }
 
     filter "configurations:Debug"
         defines { "DEBUG" }
