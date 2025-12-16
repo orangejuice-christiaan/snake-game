@@ -5,7 +5,7 @@ Snake::Snake()
 	m_Radius(1.0f),
 	m_Color(LIME),
 	m_Segments(),
-	m_DesiredSegmentCount(100)
+	m_DesiredSegmentCount(0)
 {
 }
 
